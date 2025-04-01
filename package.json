@@ -2,8 +2,12 @@
   "name": "merp-mono-app",
   "private": true,
   "workspaces": [
-    "client"
+    "client",
+    "server"
   ],
+  "scripts": {
+    "install-app": "npm --prefix client install && (npm --prefix server install || echo 'No package.json in server') && pip install -r server/install.txt"
+  },
   "dependencies": {
     "merp-mono-app": "file:"
   }
