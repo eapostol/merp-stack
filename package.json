@@ -6,7 +6,10 @@
     "server"
   ],
   "scripts": {
-    "install-app": "npm --prefix client install && (npm --prefix server install || echo 'No package.json in server') && pip install -r server/install.txt"
+    "install-client": "npm --prefix client install || echo 'No package.json in client'",
+    "install-server": "npm --prefix server install || echo 'No package.json in server'",
+    "install-server-pip": "pip install -r server/install.txt || echo 'No install.txt in server'",
+    "install-app": " npm run install-client && (npm run install-server) && install-server-pip"
   },
   "dependencies": {
     "merp-mono-app": "file:"

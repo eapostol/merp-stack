@@ -1,0 +1,14 @@
+{
+    "name": "server",
+    "version": "1.0.0",
+    "scripts": {
+        "lint": "echo 'Linting backend...'",
+        "build": "echo 'Running backend build step...'"
+    },
+    "devDependencies": {
+        "prettier": "^2.8.0"
+    },
+    "dependencies": {
+        "server": "file:"
+    }
+}
