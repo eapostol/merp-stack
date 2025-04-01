@@ -1,5 +1,10 @@
 {
   "name": "merp-mono-app",
   "private": true,
-  "workspaces": ["client"]
+  "workspaces": [
+    "client"
+  ],
+  "dependencies": {
+    "merp-mono-app": "file:"
+  }
 }
