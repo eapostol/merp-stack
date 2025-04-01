@@ -1,0 +1,5 @@
+{
+  "name": "merp-mono-app",
+  "private": true,
+  "workspaces": ["client"]
+}

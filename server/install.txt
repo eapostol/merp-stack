@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+motor
+beanie
+ariadne
+python-dotenv
+fastapi-jwt-auth
+passlib[bcrypt]
+pytest
+httpx
