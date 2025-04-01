@@ -3,3 +3,6 @@ __pycache__/
 .env
 node_modules/
 dist/
+./boilerplate/**
+./DS_store/**
+
