@@ -31,7 +31,7 @@ Fullstack app using MongoDB, FastAPI, React, and Python
 
 ### Backend
 
-1. Navigate to the `backend` directory:
+1. Navigate to the `server` directory:
 
     ```bash
     cd server
@@ -46,7 +46,7 @@ Fullstack app using MongoDB, FastAPI, React, and Python
     source dev/bin/activate  # On Windows: dev\Scripts\activate
     ```
 
-3. Install dependencies:
+3. Install dependencies (if you want to do it manually, see the note):
 
     ```bash
     pip install -r requirements.txt
@@ -77,6 +77,9 @@ Fullstack app using MongoDB, FastAPI, React, and Python
     ```bash
     npm start
     ```
+
+note: These commands are replicated in the root project's package.json file. 
+You can look at the `script` block to review the commands available via `npm run ...`.  
 
 ### Database
 
