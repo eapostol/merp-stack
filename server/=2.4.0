@@ -1,0 +1,4 @@
+Requirement already satisfied: pyjwt[crypto] in c:\programdata\anaconda3\envs\dev\lib\site-packages (1.7.1)
+Requirement already satisfied: cryptography>=1.4 in c:\programdata\anaconda3\envs\dev\lib\site-packages (from pyjwt[crypto]) (43.0.3)
+Requirement already satisfied: cffi>=1.12 in c:\programdata\anaconda3\envs\dev\lib\site-packages (from cryptography>=1.4->pyjwt[crypto]) (1.17.1)
+Requirement already satisfied: pycparser in c:\programdata\anaconda3\envs\dev\lib\site-packages (from cffi>=1.12->cryptography>=1.4->pyjwt[crypto]) (2.21)

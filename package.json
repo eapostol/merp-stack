@@ -1,17 +1,28 @@
 {
-  "name": "merp-mono-app",
+  "name": "merp-monorepo",
   "private": true,
-  "workspaces": [
-    "client",
-    "server"
-  ],
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A monorepo for MERP applications",
   "scripts": {
-    "install-client": "npm --prefix client install || echo 'No package.json in client'",
-    "install-server": "npm --prefix server install || echo 'No package.json in server'",
+    "install-client": "(cd ./client && npm install) || echo 'No package.json in client'",
+    "install-server": "(cd ./server && npm install) || echo 'No package.json in server'",
     "install-server-pip": "pip install -r server/install.txt || echo 'No install.txt in server'",
-    "install-app": " npm run install-client && (npm run install-server) && install-server-pip"
+    "install-app": " (npm run install-client) && (npm run install-server) && npm run install-server-pip",
+    "build-client": "cd ./client && npm run build",
+    "build-server": "cd ./server &&  npm run build || echo 'No build script in server'",
+    "build-app": "npm run build-client && npm run build-server",
+    "start-client": "cd ./client && npm run dev",
+    "start-server": "uvicorn app.main:app --reload --app-dir ./server",
+    "start-app": " concurrently \"npm run start-client\" \"npm run start-server\"",
+    "test-client": "npm --prefix client run test",
+    "test-server": "pytest server/tests",
+    "test-app": "concurrently \"npm run test-client\" \"npm run test-server\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
   },
   "dependencies": {
-    "merp-mono-app": "file:"
+    "merp-monorepo": "file:"
   }
 }

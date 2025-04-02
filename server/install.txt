@@ -7,4 +7,5 @@ python-dotenv
 fastapi-jwt-auth
 passlib[bcrypt]
 pytest
+pydantic[email]
 httpx
