@@ -6,3 +6,5 @@ dist/
 ./boilerplate/**
 ./DS_store/**
 
+.vscode/
+.idea/
