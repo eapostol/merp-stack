@@ -3,7 +3,7 @@ __pycache__/
 .env
 node_modules/
 dist/
-./boilerplate/**
+boilerplate/**
 ./DS_store/**
 
 .vscode/
