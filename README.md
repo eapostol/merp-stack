@@ -40,8 +40,10 @@ Fullstack app using MongoDB, FastAPI, React, and Python
 2. Create a virtual environment and activate it:
 
     ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    # navigate to your project folder first
+
+    python -m venv dev
+    source dev/bin/activate  # On Windows: dev\Scripts\activate
     ```
 
 3. Install dependencies:
