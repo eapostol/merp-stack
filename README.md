@@ -97,7 +97,10 @@ You can look at the `script` block to review the commands available via `npm run
 2. Run the test suite:
 
     ```bash
-    pytest
+    # navigate to root project folder first 
+    # if you are not there already, then
+
+    PYTHONPATH=server pytest server/tests
     ```
 
 ## Contributing
