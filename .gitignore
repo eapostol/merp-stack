@@ -7,4 +7,10 @@ boilerplate/**
 ./DS_store/**
 
 .vscode/
+*.code-workspace
+
+# JetBrains IDE settings
 .idea/
+*.iml
+
+
