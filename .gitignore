@@ -8,3 +8,4 @@ boilerplate/**
 
 .vscode/
 .idea/
+*.code-workspace
