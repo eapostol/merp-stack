@@ -4,14 +4,16 @@ Fullstack app using MongoDB, FastAPI, React, and Python
 
 ## Features
 
-- **MongoDB**: NoSQL database for storing application data.
-- **FastAPI**: Backend framework for building APIs with Python.
 - **React**: Frontend library for building user interfaces.
+- **FastAPI**: Backend framework for building APIs with Python.
+- **Ariadne**: used to perform tasks using GraphQL
+- **MongoDB**: NoSQL database for storing application data.
+- **beanie**: An ODM for Python, similar to mongoose
 - **Python**: Core programming language for backend logic.
 
 ## Folder Structure
 
-```
+```text
 /D:/projects/2025/merp-github-ready/
 ├── server/         # FastAPI backend code
 ├── client/        # React frontend code
@@ -78,7 +80,7 @@ Fullstack app using MongoDB, FastAPI, React, and Python
     npm start
     ```
 
-note: These commands are replicated in the root project's package.json file. 
+note: These commands are replicated in the root project's package.json file.
 You can look at the `script` block to review the commands available via `npm run ...`.  
 
 ### Database
