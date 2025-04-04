@@ -80,17 +80,25 @@ async def seed_database():
         # Retrieve and print the documents as a formatted table
         all_users = await User.find_all().to_list()
         table = PrettyTable()
-        table.field_names = ["First Name", "Last Name", "Email", "Full Name", "Date Created", "Last Modified", "hashed password"]
+        table.field_names = ["First Name", "middle_initial", "Last Name",
+                             "Email", "Full Name", "Date Created",
+                             "Last Modified", "hashed password"]
         for user in all_users:
             current_password = user.hashed_password  # Store the current password for hashing
-            user.hashed_password = bcrypt.hash(user.hashed_password)  
-            # Hash the password for display
+            # Hash the password for storage
+            user.hashed_password = bcrypt.hash(user.hashed_password)
+
+            # Set the full name based on the presence of middle_initial as well
+            # as fist_name and last_name
+            user.full_name = (f"{user.first_name} {user.middle_initial}. {user.last_name}" 
+                              if user.middle_initial else f"{user.first_name} {user.last_name}")
 
             # test if the password is hashed correctly
             if bcrypt.verify(current_password, user.hashed_password):
                 # print("Password hashed correctly")
                 table.add_row([
                 user.first_name,
+                user.middle_initial if user.middle_initial else "",
                 user.last_name,
                 user.email,
                 user.full_name,
