@@ -82,16 +82,14 @@ async def seed_database():
         table = PrettyTable()
         table.field_names = ["First Name", "Last Name", "Email", "Full Name", "Date Created", "Last Modified", "hashed password"]
         for user in all_users:
+            current_password = user.hashed_password  # Store the current password for hashing
             user.hashed_password = bcrypt.hash(user.hashed_password)  
             # Hash the password for display
 
             # test if the password is hashed correctly
-            if bcrypt.verify(user.hashed_password, user.hashed_password):
-                print("Password hashed correctly")
-            else:
-                print("Password hashing failed")
-
-            table.add_row([
+            if bcrypt.verify(current_password, user.hashed_password):
+                # print("Password hashed correctly")
+                table.add_row([
                 user.first_name,
                 user.last_name,
                 user.email,
@@ -99,7 +97,10 @@ async def seed_database():
                 user.date_created.strftime("%Y-%m-%d %H:%M:%S"),
                 user.last_modified.strftime("%Y-%m-%d %H:%M:%S"),
                 user.hashed_password
-            ])
+                ])
+            else:
+                print("...Password hashing failed")
+
         print(table)
 
     except Exception as error:
