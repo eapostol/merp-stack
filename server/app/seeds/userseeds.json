@@ -3,60 +3,70 @@
     "first_name": "John",
     "last_name": "Doe",
     "middle_initial": "A",
-    "email": "john.doe@example.com"
+    "email": "john.doe@example.com",
+    "password": "password01"
   },
   {
     "first_name": "Jane",
     "last_name": "Smith",
     "middle_initial": "B",
-    "email": "jane.smith@example.com"
+    "email": "jane.smith@example.com",
+    "password": "password02"
   },
   {
     "first_name": "Michael",
     "last_name": "Johnson",
     "middle_initial": null,
-    "email": "michael.johnson@example.com"
+    "email": "michael.johnson@example.com",
+    "password": "password03"
   },
   {
     "first_name": "Emily",
     "last_name": "Davis",
     "middle_initial": "C",
-    "email": "emily.davis@example.com"
+    "email": "emily.davis@example.com",
+    "password": "password04"
   },
   {
     "first_name": "Chris",
     "last_name": "Brown",
     "middle_initial": null,
-    "email": "chris.brown@example.com"
+    "email": "chris.brown@example.com",
+    "password": "password05"
   },
   {
     "first_name": "Sarah",
     "last_name": "Wilson",
     "middle_initial": "D",
-    "email": "sarah.wilson@example.com"
+    "email": "sarah.wilson@example.com",
+    "password": "password06"
   },
   {
     "first_name": "David",
     "last_name": "Martinez",
     "middle_initial": "E",
-    "email": "david.martinez@example.com"
+    "email": "david.martinez@example.com",
+    "password": "password07"
   },
   {
     "first_name": "Laura",
     "last_name": "Garcia",
     "middle_initial": null,
-    "email": "laura.garcia@example.com"
+    "email": "laura.garcia@example.com",
+    "password": "password08"
   },
   {
     "first_name": "James",
     "last_name": "Anderson",
     "middle_initial": "F",
-    "email": "james.anderson@example.com"
+    "email": "james.anderson@example.com",
+    "password": "password09"
   },
   {
     "first_name": "Olivia",
     "last_name": "Taylor",
     "middle_initial": "G",
-    "email": "olivia.taylor@example.com"
+    "email": "olivia.taylor@example.com",
+    "password": "password10"
   }
 ]
