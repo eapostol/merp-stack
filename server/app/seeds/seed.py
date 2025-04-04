@@ -3,6 +3,7 @@ import json
 import os
 from app.config.connection import init_db
 from app.models.index import User
+from app.seeds.cleanDB import clean_db
 
 # Get the path to the current directory (where seed.py is located)
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -17,6 +18,10 @@ async def seed_database():
     try:
         # Initialize the database connection
         await init_db()
+
+        # Check if the User model exists and clean out the data if it does
+        if await User.exists() and await User.count_documents({}) > 0:
+            await clean_db()
 
         # Load seed data from the JSON file
         with open(USER_SEEDS_PATH, "r") as file:
