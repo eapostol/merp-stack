@@ -19,8 +19,8 @@ async def seed_database():
         # Initialize the database connection
         await init_db()
 
-        # Check if the User model exists and clean out the data if it does
-        if await User.exists() and await User.count_documents({}) > 0:
+        # Check if the User collection has any documents and clean out the data if it does
+        if await User.count_documents({}) > 0:
             await clean_db()
 
         # Load seed data from the JSON file
