@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import { Center, Stack, Container } from '@mantine/core';
 import './App.css'
 import HelloFromServer from './components/HelloFromServer'
 import NavBar from './components/NavBar'
@@ -11,11 +12,14 @@ function App() {
   return (
     <>
     <NavBar />
+    <Center style={{ height: 'calc(100vh - 64px)' }}> {/* 64px = navbar height estimate */}
+    <Container size="sm">
+    <Stack align="center" justify="center">
       <div>
-        <a href="https://vite.dev" target="_blank">
+        <a href="https://vite.dev" target="_blank" rel="noopener">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
-        <a href="https://react.dev" target="_blank">
+        <a href="https://react.dev" target="_blank" rel="noopener">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
@@ -34,6 +38,10 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+    </Stack>
+    </Container>
+    </Center>
+
     </>
   )
 }
