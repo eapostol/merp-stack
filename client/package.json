@@ -13,6 +13,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.0",
+    "@mantine/core": "^7.17.3",
+    "@mantine/hooks": "^7.17.3",
+    "@mantine/modals": "^7.17.3",
+    "@mantine/notifications": "^7.17.3",
     "axios": "^1.0.0",
     "client": "file:",
     "react": "^19.0.0",

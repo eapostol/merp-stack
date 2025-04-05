@@ -17,7 +17,9 @@
     "start-app": " concurrently \"npm run start-client\" \"npm run start-server\"",
     "test-client": "npm --prefix client run test",
     "test-server": "pytest server/tests",
-    "test-app": "concurrently \"npm run test-client\" \"npm run test-server\""
+    "test-app": "concurrently \"npm run test-client\" \"npm run test-server\"",
+    "start-server-env": "conda activate dev # if using conda with env named dev",
+    "start-server-venv": "source venv/bin/activate # if using virtualenv with venv folder"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

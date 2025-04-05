@@ -13,4 +13,5 @@ boilerplate/**
 .idea/
 *.iml
 
+*.zip
 
