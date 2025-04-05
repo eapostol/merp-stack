@@ -5,6 +5,7 @@ Fullstack app using MongoDB, FastAPI, React, and Python
 ## Features
 
 - **React**: Frontend library for building user interfaces.
+- **Mantine**: React Component Framework
 - **FastAPI**: Backend framework for building APIs with Python.
 - **Ariadne**: used to perform tasks using GraphQL
 - **MongoDB**: NoSQL database for storing application data.
@@ -51,7 +52,7 @@ Fullstack app using MongoDB, FastAPI, React, and Python
 3. Install dependencies (if you want to do it manually, see the note):
 
     ```bash
-    pip install -r requirements.txt
+    pip install -r install.txt
     ```
 
 4. Start the FastAPI server:
@@ -83,10 +84,34 @@ Fullstack app using MongoDB, FastAPI, React, and Python
 note: These commands are replicated in the root project's package.json file.
 You can look at the `script` block to review the commands available via `npm run ...`.  
 
+### Available Scripts
+
+The `scripts` block in the root `package.json` provides the following commands:
+
+- **start-app**: Starts both the frontend and backend servers concurrently for development.
+- **start-client**: Starts the React development server located in the `client` directory.
+- **start-server**: Starts the FastAPI backend server using `uvicorn`.
+- **test-client**: Runs unit and integration tests for the React frontend.
+- **test-server**: Runs unit and integration tests for the FastAPI backend using `pytest`.
+- **lint**: Runs linting tools for both frontend and backend code to ensure code quality.
+- **build-client**: Builds the React frontend for production.
+- **clean**: Cleans up temporary files and build artifacts from the project.
+
+Refer to the `package.json` file for the exact implementation of these commands.
+
 ### Database
 
 1. Ensure MongoDB is running locally or provide a connection string in the environment variables.
 2. Seed the database if necessary using scripts in the `database` folder.
+
+### Database Script Execution
+
+from the `server` directory execute the following in terminal with python virtual environment
+activated.
+
+* `pip -m app.seeds.createDB` : creates the exampleDB database
+* `pip -m app.seeds.cleanDB` : removes all data and collections from database
+* `pip -m app.seeds.seed` : seeds the User model of the database
 
 ## Testing
 
