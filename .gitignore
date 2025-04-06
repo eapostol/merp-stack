@@ -17,3 +17,12 @@ boilerplate/**
 
 *.zip
 
+# Ignore archive and backup files
+*.zip
+*.old
+*.bak
+*.prev
+*.orig
+*.swp
+
+
