@@ -8,5 +8,6 @@ fastapi-jwt-auth
 passlib[bcrypt]
 prettytable
 pytest
+pyjwt
 pydantic[email]
 httpx
