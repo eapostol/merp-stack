@@ -30,13 +30,20 @@ const NavBar = () => {
                 <div style={titleStyle}>FERPa DERPA</div>
 
                 {/* Desktop nav */}
-                <Group gap="md" visibleFrom="sm">
+                <Group spacing="lg" visibleFrom="sm">
                     {menuItems.map((item) => (
                         <Button
                             key={item.label}
                             component={Link}
                             to={item.path}
                             variant="subtle"
+                            styles={{
+                                root: {
+                                    paddingLeft: '0.75rem',
+                                    paddingRight: '0.75rem',
+                                    fontWeight: 500,
+                                },
+                            }}
                         >
                             {item.label}
                         </Button>
@@ -78,7 +85,7 @@ const NavBar = () => {
                 withCloseButton={false}
                 opened={opened}
                 onClose={close}
-                title="Menu"
+                title="Options"
                 padding="md"
                 size="md"
                 hiddenFrom="sm"
@@ -111,19 +118,28 @@ const NavBar = () => {
                     }}
                 />
 
-                <Stack>
+                <Stack align="stretch" spacing="xs">
                     {menuItems.map((item) => (
-                        <Button
-                            key={item.label}
-                            component={Link}
-                            to={item.path}
-                            variant="subtle"
-                            onClick={close}
-                        >
-                            {item.label}
-                        </Button>
+                        <Group key={item.label} spacing="xs" align="center" noWrap>
+                            <span style={{ fontWeight: 'bold', color: '#000', fontSize: '0.8rem' }}>✕&nbsp;</span>
+                            <Button
+                                component={Link}
+                                to={item.path}
+                                variant="subtle"
+                                onClick={close}
+                                fullWidth
+                                justify="flex-start"
+                                styles={{
+                                    root: { justifyContent: 'flex-start', paddingLeft: 0 },
+                                }}
+                            >
+                                {item.label}
+                            </Button>
+                        </Group>
                     ))}
                 </Stack>
+
+
             </Drawer>
         </>
     );
