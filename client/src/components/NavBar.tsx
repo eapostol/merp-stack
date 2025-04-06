@@ -1,11 +1,18 @@
 import { ActionIcon, Drawer, Button, CloseButton, Container, Group, Stack, useMantineTheme } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { Link } from 'react-router-dom';
+import { IconX } from '@tabler/icons-react';
 // import { useState } from 'react';
 
 const NavBar = () => {
     const [opened, { toggle, close }] = useDisclosure(false);
     const theme = useMantineTheme();
-    const menuItems = ['Home', 'About', 'Login'];
+    const menuItems = [
+        { label: 'Home', path: '/' },
+        { label: 'About', path: '/about' },
+        { label: 'View Users (Test)', path: '/view-users' },
+        { label: 'Login', path: '/login' }
+    ];
     const titleStyle = { fontWeight: 700, fontSize: '1.2rem' };
 
     return (
@@ -24,9 +31,14 @@ const NavBar = () => {
 
                 {/* Desktop nav */}
                 <Group gap="md" visibleFrom="sm">
-                    {menuItems.map((label) => (
-                        <Button key={label} variant="subtle">
-                            {label}
+                    {menuItems.map((item) => (
+                        <Button
+                            key={item.label}
+                            component={Link}
+                            to={item.path}
+                            variant="subtle"
+                        >
+                            {item.label}
                         </Button>
                     ))}
                 </Group>
@@ -84,28 +96,31 @@ const NavBar = () => {
             >
                 <CloseButton
                     onClick={close}
+                    icon={<IconX size={14} stroke={2} />}
                     size="xs"
-                    iconSize="14"
-                    color="bluish"
                     style={{
-                        display: 'block',
-                        margin: '0 auto 1rem auto',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '36px',
+                        height: '36px',
+                        margin: '1rem auto',
                         border: '1px solid #ccc',
                         borderRadius: '50%',
-                        transition: 'all 0.2s ease',
-                        '&:hover': {
-                            backgroundColor: theme.colors.red[0],
-                            color: theme.colors.red[7],
-                            transform: 'scale(1.1)',
-                        },
-                        
+                        padding: 0,
                     }}
                 />
 
                 <Stack>
-                    {menuItems.map((label) => (
-                        <Button key={label} variant="subtle" onClick={() => close()}>
-                            {label}
+                    {menuItems.map((item) => (
+                        <Button
+                            key={item.label}
+                            component={Link}
+                            to={item.path}
+                            variant="subtle"
+                            onClick={close}
+                        >
+                            {item.label}
                         </Button>
                     ))}
                 </Stack>
