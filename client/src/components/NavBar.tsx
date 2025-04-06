@@ -118,9 +118,9 @@ const NavBar = () => {
                     }}
                 />
 
-                <Stack align="stretch" spacing="xs">
+                <Stack align="stretch" gap="xs">
                     {menuItems.map((item) => (
-                        <Group key={item.label} spacing="xs" align="center" noWrap>
+                        <Group key={item.label} gap="xs" align="center" wrap="nowrap">
                             <span style={{ fontWeight: 'bold', color: '#000', fontSize: '0.8rem' }}>✕&nbsp;</span>
                             <Button
                                 component={Link}
