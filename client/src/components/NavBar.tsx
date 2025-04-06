@@ -1,11 +1,18 @@
 import { ActionIcon, Drawer, Button, CloseButton, Container, Group, Stack, useMantineTheme } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { Link } from 'react-router-dom';
+import { IconX } from '@tabler/icons-react';
 // import { useState } from 'react';
 
 const NavBar = () => {
     const [opened, { toggle, close }] = useDisclosure(false);
     const theme = useMantineTheme();
-    const menuItems = ['Home', 'About', 'Login'];
+    const menuItems = [
+        { label: 'Home', path: '/' },
+        { label: 'About', path: '/about' },
+        { label: 'View Users (Test)', path: '/view-users' },
+        { label: 'Login', path: '/login' }
+    ];
     const titleStyle = { fontWeight: 700, fontSize: '1.2rem' };
 
     return (
@@ -23,10 +30,22 @@ const NavBar = () => {
                 <div style={titleStyle}>FERPa DERPA</div>
 
                 {/* Desktop nav */}
-                <Group gap="md" visibleFrom="sm">
-                    {menuItems.map((label) => (
-                        <Button key={label} variant="subtle">
-                            {label}
+                <Group spacing="lg" visibleFrom="sm">
+                    {menuItems.map((item) => (
+                        <Button
+                            key={item.label}
+                            component={Link}
+                            to={item.path}
+                            variant="subtle"
+                            styles={{
+                                root: {
+                                    paddingLeft: '0.75rem',
+                                    paddingRight: '0.75rem',
+                                    fontWeight: 500,
+                                },
+                            }}
+                        >
+                            {item.label}
                         </Button>
                     ))}
                 </Group>
@@ -66,7 +85,7 @@ const NavBar = () => {
                 withCloseButton={false}
                 opened={opened}
                 onClose={close}
-                title="Menu"
+                title="Options"
                 padding="md"
                 size="md"
                 hiddenFrom="sm"
@@ -84,31 +103,43 @@ const NavBar = () => {
             >
                 <CloseButton
                     onClick={close}
+                    icon={<IconX size={14} stroke={2} />}
                     size="xs"
-                    iconSize="14"
-                    color="bluish"
                     style={{
-                        display: 'block',
-                        margin: '0 auto 1rem auto',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '36px',
+                        height: '36px',
+                        margin: '1rem auto',
                         border: '1px solid #ccc',
                         borderRadius: '50%',
-                        transition: 'all 0.2s ease',
-                        '&:hover': {
-                            backgroundColor: theme.colors.red[0],
-                            color: theme.colors.red[7],
-                            transform: 'scale(1.1)',
-                        },
-                        
+                        padding: 0,
                     }}
                 />
 
-                <Stack>
-                    {menuItems.map((label) => (
-                        <Button key={label} variant="subtle" onClick={() => close()}>
-                            {label}
-                        </Button>
+                <Stack align="stretch" gap="xs">
+                    {menuItems.map((item) => (
+                        <Group key={item.label} gap="xs" align="center" wrap="nowrap">
+                            <span style={{ fontWeight: 'bold', color: '#000', fontSize: '0.8rem' }}>✕&nbsp;</span>
+                            <Button
+                                component={Link}
+                                to={item.path}
+                                variant="subtle"
+                                onClick={close}
+                                fullWidth
+                                justify="flex-start"
+                                styles={{
+                                    root: { justifyContent: 'flex-start', paddingLeft: 0 },
+                                }}
+                            >
+                                {item.label}
+                            </Button>
+                        </Group>
                     ))}
                 </Stack>
+
+
             </Drawer>
         </>
     );
