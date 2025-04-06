@@ -69,7 +69,7 @@ const ViewUsersTest = () => {
                     borderColor: theme.colors.gray[4],
                     tableLayout: 'auto',
                     fontSize: '0.8rem', // Default font size
-                    [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+                    [`@media (maxWidth: ${theme.breakpoints.sm})`]: {
                       fontSize: '0.7rem', // Smaller font size for small screens
                     },
                   }}
