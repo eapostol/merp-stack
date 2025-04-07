@@ -75,7 +75,7 @@ async def seed_database():
  
 
             # Set the full name based on the presence of middle_initial as well
-            # as fist_name and last_name
+            # as first_name and last_name
             user['full_name'] = (f"{user['first_name']} {user['middle_initial']}. {user['last_name']}" 
                               if user['middle_initial'] else f"{user['first_name']} {user['last_name']}")
 
