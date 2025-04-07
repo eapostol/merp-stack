@@ -30,7 +30,7 @@ const NavBar = () => {
                 <div style={titleStyle}>FERPa DERPA</div>
 
                 {/* Desktop nav */}
-                <Group spacing="lg" visibleFrom="sm">
+                <Group gap="lg" visibleFrom="sm">
                     {menuItems.map((item) => (
                         <Button
                             key={item.label}
