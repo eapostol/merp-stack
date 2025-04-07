@@ -24,7 +24,7 @@
     "clean:client": "cd ./client && npm run clean",
     "clean:server": "cd ./server && npm run clean",
     "clean:dedupe": "npm dedupe",
-    "clean:prune": "npm prune",
+    "clean:prune": "npm prune"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
