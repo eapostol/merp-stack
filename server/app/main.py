@@ -5,7 +5,8 @@ from beanie import init_beanie
 from app.models.user import User
 from app.graphql.schema import schema
 
-# add test route
+# Import REST API routes
+# test route below
 from app.routes.hello import router as hello_router
 
 app = FastAPI()
@@ -15,8 +16,12 @@ async def init_db():
     """
     Initialize the database connection and configure Beanie with the User model.
     """
-    client = AsyncIOMotorClient("mongodb://localhost:27017")
-    await init_beanie(database=client.db_name, document_models=[User])
+    print("Connecting to the database...")
+    client = AsyncIOMotorClient("mongodb://localhost:27017/exampleDB")
+    db = client["exampleDB"]  # Explicitly reference the database
+    print(f"Connected to database: {db.name}")
+
+    await init_beanie(database=db, document_models=[User])
 
     # Perform a test query during startup
     await test_query()
