@@ -1,0 +1,29 @@
+# This file contains the GraphQL schema definition for the application.
+# It defines the types, queries, and mutations that can be performed on the data.
+# The schema is used by the GraphQL server to understand the structure of the
+# data and how to interact with it.
+# This file is equivalent to typeDefs.ts in the Apollo Server setup.
+
+type User {
+  id: ID!
+  firstName: String!
+  middleInitial: String
+  lastName: String!
+  email: String!
+  username: String!
+}
+
+type Query {
+  users: [User!]!
+}
+
+type Mutation {
+  addUser(
+    firstName: String!
+    middleInitial: String
+    lastName: String!
+    email: String!
+    username: String!
+  ): User!
+  deleteUser(id: ID!): Boolean!
+}

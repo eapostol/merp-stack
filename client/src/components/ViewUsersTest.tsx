@@ -1,14 +1,17 @@
+import React, { useState, useEffect } from 'react';
 import { Table, Button, Container, Title, Center, Card, Image, Text, Group, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { isMobile as isMobileDevice, isTablet } from 'react-device-detect'; // Import device detection
 // Require gender detection module
-import gender from 'gender-detection-ts';
+// TODO: this is a large component. need to reduce it somehow.
+// import gender from 'gender-detection-ts';
 
 const ViewUsersTest = () => {
   const theme = useMantineTheme(); // Access Mantine's theme for breakpoints
   const isMobileScreen = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`); // Check if the screen is mobile-sized
   const isMobile = isMobileScreen || isMobileDevice || isTablet; // Combine media query and device detection
 
+/* 
   console.log('Theme Breakpoints:', theme.breakpoints);
   console.log('Current Screen Width:', window.innerWidth);
   console.log('Is Mobile Screen:', isMobileScreen);
@@ -16,13 +19,13 @@ const ViewUsersTest = () => {
   console.log('Is Tablet:', isTablet);
   console.log('Is Mobile:', isMobile);
 
+*/
+
   interface DetectionOptions {
     useProbability?: boolean // if a name is unisex, the one with the higher probability will be evaluated
     useCount?: boolean // same with count
     // mutually exclusive
-  }
-  
-  let g;
+  } 
 
   // Mock data for the table/cards
   const mockUsers = [
@@ -73,8 +76,19 @@ const ViewUsersTest = () => {
     },
   ];
 
+  const [genderDetector, setGenderDetector] = useState<{ detect: (name: string, options?: DetectionOptions) => string } | null>(null);
+
+  useEffect(() => {
+    // Dynamically import the gender-detection-ts package
+    import('gender-detection-ts').then((module) => {
+      setGenderDetector(() => module.default || module);
+    });
+  }, []);
+
+
   const getGender = (name: string, options?: DetectionOptions) => {
-    return gender.detect(name, options as DetectionOptions);
+    if (!genderDetector) return 'unknown'; // Fallback if the package is not yet loaded
+    return genderDetector.detect(name, options as DetectionOptions);
   }
 
   return (
