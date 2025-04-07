@@ -1,5 +1,5 @@
 from beanie import Document, before_event
-from pydantic import BaseModel, EmailStr
+from pydantic import EmailStr
 from typing import Optional
 from datetime import datetime
 from passlib.hash import bcrypt

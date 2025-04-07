@@ -28,6 +28,8 @@ def resolve_hello(*_):
 #    return await User.find_all().to_list()
 
 # Mutation resolvers
+"""
+# TODO: remove this once tested
 @mutation.field("addUser")
 async def resolve_add_user(_, info, firstName, middleInitial, lastName, email, password):
     new_user = User(
@@ -39,6 +41,7 @@ async def resolve_add_user(_, info, firstName, middleInitial, lastName, email, p
     )
     await new_user.insert()
     return new_user
+"""
 
 
 
