@@ -109,9 +109,23 @@ Refer to the `package.json` file for the exact implementation of these commands.
 from the `server` directory execute the following in terminal with python virtual environment
 activated.
 
-* `pip -m app.seeds.createDB` : creates the exampleDB database
-* `pip -m app.seeds.cleanDB` : removes all data and collections from database
-* `pip -m app.seeds.seed` : seeds the User model of the database
+- `pip -m app.seeds.createDB` : creates the exampleDB database
+- `pip -m app.seeds.cleanDB` : removes all data and collections from database
+- `pip -m app.seeds.seed` : seeds the User model of the database
+
+### graphQL and REST APIs
+
+- both graphQL and REST APIs are available in this application
+- to view graphQL playground using Ariadne (the python equivalent of Apollo),
+      - you can start the server side directly from the root folder with
+      - `npm run start-server`, then use a browser and browse to
+      - `http://localhost:8000`
+
+![alt text](./docs/images/ariadne-preview.png)
+
+- to use REST API, The vite config server is defined to send requests through
+  - `http://localhost:8000/api` ; a test GET Request is available through
+    `http://localhost:8000/api/hello`
 
 ## Testing
 
