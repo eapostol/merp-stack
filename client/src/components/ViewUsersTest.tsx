@@ -1,6 +1,8 @@
 import { Table, Button, Container, Title, Center, Card, Image, Text, Group, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { isMobile as isMobileDevice, isTablet } from 'react-device-detect'; // Import device detection
+// Require gender detection module
+import gender from 'gender-detection-ts';
 
 const ViewUsersTest = () => {
   const theme = useMantineTheme(); // Access Mantine's theme for breakpoints
@@ -13,6 +15,14 @@ const ViewUsersTest = () => {
   console.log('Is Mobile Device:', isMobileDevice);
   console.log('Is Tablet:', isTablet);
   console.log('Is Mobile:', isMobile);
+
+  interface DetectionOptions {
+    useProbability?: boolean // if a name is unisex, the one with the higher probability will be evaluated
+    useCount?: boolean // same with count
+    // mutually exclusive
+  }
+  
+  let g;
 
   // Mock data for the table/cards
   const mockUsers = [
@@ -63,6 +73,10 @@ const ViewUsersTest = () => {
     },
   ];
 
+  const getGender = (name: string, options?: DetectionOptions) => {
+    return gender.detect(name, options as DetectionOptions);
+  }
+
   return (
     <Container size="lg" py="md">
       {/* Title */}
@@ -78,46 +92,48 @@ const ViewUsersTest = () => {
             <Card key={user.userId} shadow="sm" padding="lg" radius="md" withBorder>
               {/* Random Image */}
               <Card.Section>
-                <Image
-                  src={`https://randomuser.me/api/portraits/men/${Math.floor(Math.random() * 100)}.jpg`}
-                  alt="Random User"
-                  height={160}
-                />
+              <Image
+                src={`https://randomuser.me/api/portraits/${
+                getGender(user.firstName, {useProbability: true} as DetectionOptions)==='female' ? 'women' : 'men'
+                }/${Math.floor(Math.random() * 100)}.jpg`}
+                alt="Random User"
+                height={160}
+              />
               </Card.Section>
 
               {/* Full Name */}
-              <Text fw={500} size="lg" mt="md" style={{ textAlign: 'left' }}>
-                {user.fullName}
+              <Text fw={500} size="lg" mt="md" style={{ textAlign: 'center' }}>
+              {user.fullName}
               </Text>
 
               {/* User Details */}
               <Text size="sm" mt="sm">
-                <strong>ID:</strong> {user.userId}
+              <strong>ID:</strong> {user.userId}
               </Text>
               <Text size="sm">
-                <strong>First Name:</strong> {user.firstName}
+              <strong>First Name:</strong> {user.firstName}
               </Text>
               <Text size="sm">
-                <strong>Middle Initial:</strong> {user.middleInitial || 'N/A'}
+              <strong>Middle Initial:</strong> {user.middleInitial || 'N/A'}
               </Text>
               <Text size="sm">
-                <strong>Last Name:</strong> {user.lastName}
+              <strong>Last Name:</strong> {user.lastName}
               </Text>
               <Text size="sm">
-                <strong>Email:</strong> {user.email}
+              <strong>Email:</strong> {user.email}
               </Text>
               <Text size="sm">
-                <strong>Username:</strong> {user.username}
+              <strong>Username:</strong> {user.username}
               </Text>
 
               {/* Action Buttons */}
               <Group mt="md" align="center">
-                <Button variant="outline" color="blue" size="xs">
-                  Update
-                </Button>
-                <Button variant="outline" color="red" size="xs">
-                  Delete
-                </Button>
+              <Button variant="outline" color="blue" size="xs">
+                Update
+              </Button>
+              <Button variant="outline" color="red" size="xs">
+                Delete
+              </Button>
               </Group>
             </Card>
           ))}

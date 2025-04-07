@@ -19,6 +19,7 @@
     "@mantine/notifications": "^7.17.3",
     "@tabler/icons-react": "^3.31.0",
     "axios": "^1.0.0",
+    "gender-detection-ts": "^1.1.0",
     "react": "^19.0.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^19.0.0",
