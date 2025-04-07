@@ -25,4 +25,5 @@ boilerplate/**
 *.orig
 *.swp
 
-
+# Ignore markdown files with "Code Citations" in the filename
+*Code Citations*.md
