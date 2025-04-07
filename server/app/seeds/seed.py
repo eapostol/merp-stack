@@ -64,12 +64,26 @@ async def seed_database():
 
         # Insert each user individually to trigger the insert hook
         for user in user_data:
-            # Rename the field `password` to `hashed_password`
+
+            current_password = user["password"]  # Store the current password for hashing
+
+            # Rename the field `password` to `hashed_password`            
             user["hashed_password"] = user.pop("password")
+
+            # Hash the password for storage
+            user["hashed_password"] = bcrypt.hash( user["hashed_password"])
+ 
+
+            # Set the full name based on the presence of middle_initial as well
+            # as fist_name and last_name
+            user['full_name'] = (f"{user['first_name']} {user['middle_initial']}. {user['last_name']}" 
+                              if user['middle_initial'] else f"{user['first_name']} {user['last_name']}")
 
             # Add required fields
             user["date_created"] = datetime.utcnow()
             user["last_modified"] = datetime.utcnow()
+
+            print(f"...seeding user: {user} \n...with unhashed / hashed password: {current_password} / {user['hashed_password']}\n\n")
 
             # Create and insert a User instance
             user_instance = User(**user)
@@ -84,18 +98,6 @@ async def seed_database():
                              "Email", "Full Name", "Date Created",
                              "Last Modified", "hashed password"]
         for user in all_users:
-            current_password = user.hashed_password  # Store the current password for hashing
-            # Hash the password for storage
-            user.hashed_password = bcrypt.hash(user.hashed_password)
-
-            # Set the full name based on the presence of middle_initial as well
-            # as fist_name and last_name
-            user.full_name = (f"{user.first_name} {user.middle_initial}. {user.last_name}" 
-                              if user.middle_initial else f"{user.first_name} {user.last_name}")
-
-            # test if the password is hashed correctly
-            if bcrypt.verify(current_password, user.hashed_password):
-                # print("Password hashed correctly")
                 table.add_row([
                 user.first_name,
                 user.middle_initial if user.middle_initial else "",
@@ -106,9 +108,8 @@ async def seed_database():
                 user.last_modified.strftime("%Y-%m-%d %H:%M:%S"),
                 user.hashed_password
                 ])
-            else:
-                print("...Password hashing failed")
 
+        print("\n...Seeded Users:")
         print(table)
 
     except Exception as error:
