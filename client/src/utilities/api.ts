@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create an Axios instance with default settings
 const apiClient = axios.create({
-  baseURL: "/api", // Base URL for all API requests
+  baseURL: "/api", // Relative path; Vite's proxy will forward this to the backend
   timeout: 5000, // Request timeout
   headers: {
     "Content-Type": "application/json",
@@ -38,7 +38,10 @@ export const createUser = async (userData: Record<string, any>) => {
   return response.data;
 };
 
-export const updateUser = async (userId: string, userData: Record<string, any>) => {
+export const updateUser = async (
+  userId: string,
+  userData: Record<string, any>
+) => {
   const response = await apiClient.put(`/users/${userId}`, userData);
   return response.data;
 };
