@@ -1,0 +1,28 @@
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// for testing. adding a visualizer because its getting slow to load app
+import { visualizer } from 'rollup-plugin-visualizer';
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    visualizer({
+      open: true, // Automatically open the visualization in the browser
+      filename: 'bundle-analysis.html', // Output file for the visualization
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  ],
+  server: {
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  }
+})
