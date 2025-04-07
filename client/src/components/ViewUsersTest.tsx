@@ -20,9 +20,7 @@ const ViewUsersTest = () => {
     useProbability?: boolean // if a name is unisex, the one with the higher probability will be evaluated
     useCount?: boolean // same with count
     // mutually exclusive
-  }
-  
-  let g;
+  } 
 
   // Mock data for the table/cards
   const mockUsers = [
