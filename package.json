@@ -8,7 +8,7 @@
     "install-client": "(cd ./client && npm install) || echo 'No package.json in client'",
     "install-server": "(cd ./server && npm install) || echo 'No package.json in server'",
     "install-server-pip": "pip install -r server/install.txt || echo 'No install.txt in server'",
-    "install-app": " (npm run install-client) && (npm run install-server) && npm run install-server-pip",
+    "install-app": " npm run install-client && npm run install-server && npm run install-server-pip",
     "build-client": "cd ./client && npm run build",
     "build-server": "cd ./server &&  npm run build || echo 'No build script in server'",
     "build-app": "npm run build-client && npm run build-server",
@@ -19,12 +19,14 @@
     "test-server": "pytest server/tests",
     "test-app": "concurrently \"npm run test-client\" \"npm run test-server\"",
     "start-server-env": "conda activate dev # if using conda with env named dev",
-    "start-server-venv": "source venv/bin/activate # if using virtualenv with venv folder"
+    "start-server-venv": "source venv/bin/activate # if using virtualenv with venv folder",
+    "clean": "rm -rf node_modules && rm -rf client/node_modules && rm -rf server/node_modules && rm -rf client/dist && rm -rf server/dist",
+    "clean:client": "cd ./client && npm run clean",
+    "clean:server": "cd ./server && npm run clean",
+    "clean:dedupe": "npm dedupe",
+    "clean:prune": "npm prune",
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
-  },
-  "dependencies": {
-    "merp-monorepo": "file:"
   }
 }
