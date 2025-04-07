@@ -2,6 +2,7 @@ import { Table, Button, Container, Title, Center, Card, Image, Text, Group, useM
 import { useMediaQuery } from '@mantine/hooks';
 import { isMobile as isMobileDevice, isTablet } from 'react-device-detect'; // Import device detection
 // Require gender detection module
+// TODO: this is a large component. need to reduce it somehow.
 import gender from 'gender-detection-ts';
 
 const ViewUsersTest = () => {
