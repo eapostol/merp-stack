@@ -4,18 +4,19 @@
 # data and how to interact with it.
 # This file is equivalent to typeDefs.ts in the Apollo Server setup.
 
-type Query {
-  hello: String!
-  users: [User!]!
-}
-
 type User {
   id: ID!
   first_name: String!
   middle_initial: String
   last_name: String!
+  full_name: String
   hashed_password: String!
   email: String!
+}
+
+type Query {
+  users: [User!]!
+  hello: String!
 }
 
 type Mutation {
@@ -23,6 +24,7 @@ type Mutation {
     first_name: String!
     middle_initial: String
     last_name: String!
+    full_name: String
     email: String!
     hashed_password: String!
   ): User!
