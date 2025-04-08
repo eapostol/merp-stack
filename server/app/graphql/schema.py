@@ -15,12 +15,10 @@ type_defs = load_schema_from_path(SCHEMA_PATH)
 schema = make_executable_schema(type_defs, query, mutation)
 
 
-query = QueryType()
-mutation = MutationType()
+# query = QueryType()
+# mutation = MutationType()
 
-@query.field("hello")
-def resolve_hello(*_):
-    return "Hello from FastAPI + GraphQL!"
+
 
 # Query resolvers
 # @query.field("users")
@@ -45,10 +43,6 @@ async def resolve_add_user(_, info, firstName, middleInitial, lastName, email, p
 
 
 
-@mutation.field("register")
-async def resolve_register(_, info, email, password):
-    user = User(email=email, hashed_password=password)
-    await user.insert()
-    return True
+
 
 
