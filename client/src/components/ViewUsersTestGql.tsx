@@ -54,7 +54,6 @@ const ViewUsersTestGql: React.FC = () => {
             <th>Last Name</th>
             <th>Full Name</th>
             <th>Email</th>
-            <th>Hashed Password</th>
           </tr>
         </thead>
         <tbody>
@@ -65,7 +64,6 @@ const ViewUsersTestGql: React.FC = () => {
               <td>{user.last_name}</td>
               <td>{user.full_name}</td>
               <td>{user.email}</td>
-              <td>{user.hashed_password}</td>
             </tr>
           ))}
         </tbody>
