@@ -109,9 +109,9 @@ Refer to the `package.json` file for the exact implementation of these commands.
 from the `server` directory execute the following in terminal with python virtual environment
 activated.
 
-- `pip -m app.seeds.createDB` : creates the exampleDB database
-- `pip -m app.seeds.cleanDB` : removes all data and collections from database
-- `pip -m app.seeds.seed` : seeds the User model of the database
+- `python -m app.seeds.createDB` : creates the exampleDB database
+- `python -m app.seeds.cleanDB` : removes all data and collections from database
+- `python -m app.seeds.seed` : seeds the User model of the database
 
 ### graphQL and REST APIs
 
