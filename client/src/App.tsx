@@ -5,6 +5,7 @@ import React, { Suspense } from 'react';
 const Home = React.lazy(() => import('./components/Home'));
 const About = React.lazy(() => import('./components/About'));
 const ViewUsersTest = React.lazy(() => import('./components/ViewUsersTest'));
+const ViewUsersTestGql = React.lazy(() => import('./components/ViewUsersTestGql'));
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/view-users" element={<ViewUsersTest />} /> {/* Add the route */}
+          <Route path="/view-users-gql" element={<ViewUsersTestGql />} />
         </Routes>
       </Suspense>
     </Router>

@@ -86,6 +86,10 @@ users_db = [
 
 # Query resolvers
 
+@query.field("hello")
+def resolve_hello(*_):
+    return "Hello from FastAPI + GraphQL!"
+
 @query.field("users")
 async def resolve_users(*_):
     users = await User.find_all().to_list()
@@ -96,7 +100,6 @@ async def resolve_users(*_):
     return users
 
 # Mutation resolvers
-
 
 @mutation.field("addUser")
 def resolve_add_user(_, info,
@@ -122,4 +125,10 @@ def resolve_add_user(_, info,
 def resolve_delete_user(_, info, id):
     global users_db
     users_db = [user for user in users_db if user["id"] != id]
+    return True
+
+@mutation.field("register")
+async def resolve_register(_, info, email, password):
+    user = User(email=email, hashed_password=password)
+    await user.insert()
     return True
