@@ -14,35 +14,3 @@ type_defs = load_schema_from_path(SCHEMA_PATH)
 # type_defs = load_schema_from_path("app/graphql/schema.graphql")
 schema = make_executable_schema(type_defs, query, mutation)
 
-
-# query = QueryType()
-# mutation = MutationType()
-
-
-
-# Query resolvers
-# @query.field("users")
-#async def resolve_users(*_):
-#    return await User.find_all().to_list()
-
-# Mutation resolvers
-"""
-# TODO: remove this once tested
-@mutation.field("addUser")
-async def resolve_add_user(_, info, firstName, middleInitial, lastName, email, password):
-    new_user = User(
-        first_name=firstName,
-        middle_initial=middleInitial,
-        last_name=lastName,
-        email=email,
-        hashed_password=password,
-    )
-    await new_user.insert()
-    return new_user
-"""
-
-
-
-
-
-
