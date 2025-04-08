@@ -1,0 +1,206 @@
+import { useState, useEffect } from 'react';
+import { Table, Button, Container, Title, Center, Card, Image, Text, Group, useMantineTheme } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import { isMobile as isMobileDevice, isTablet } from 'react-device-detect'; // Import device detection
+import styles from './viewusers.module.css';
+// TODO: this is a large component. need to reduce it somehow.
+
+const ViewUsersTest = () => {
+
+  interface DetectionOptions {
+    useProbability?: boolean // if a name is unisex, the one with the higher probability will be evaluated
+    useCount?: boolean // same with count, mutually exclusive
+  }
+
+  // Mock data for the table/cards. used if cannot load from DB
+  const mockUsers = [
+    {
+      userId: '1',
+      firstName: 'John',
+      middleInitial: 'A',
+      lastName: 'Doe',
+      fullName: 'John A. Doe',
+      email: 'john.doe@example.com',
+      username: 'johndoe',
+    },
+    {
+      userId: '2',
+      firstName: 'Jane',
+      middleInitial: 'B',
+      lastName: 'Smith',
+      fullName: 'Jane B. Smith',
+      email: 'jane.smith@example.com',
+      username: 'janesmith',
+    },
+    {
+      userId: '3',
+      firstName: 'Michael',
+      middleInitial: '',
+      lastName: 'Johnson',
+      fullName: 'Michael Johnson',
+      email: 'michael.johnson@example.com',
+      username: 'mjohnson',
+    },
+    {
+      userId: '4',
+      firstName: 'Emily',
+      middleInitial: 'C',
+      lastName: 'Davis',
+      fullName: 'Emily C. Davis',
+      email: 'emily.davis@example.com',
+      username: 'edavis',
+    },
+    {
+      userId: '5',
+      firstName: 'Chris',
+      middleInitial: '',
+      lastName: 'Brown',
+      fullName: 'Chris Brown',
+      email: 'chris.brown@example.com',
+      username: 'cbrown',
+    },
+  ];
+
+  const theme = useMantineTheme(); // Access Mantine's theme for breakpoints
+  const isMobileScreen = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`); // Check if the screen is mobile-sized
+  const isMobile = isMobileScreen || isMobileDevice || isTablet; // Combine media query and device detection
+
+  const [genderDetector, setGenderDetector] = useState<{ detect: (name: string, options?: DetectionOptions) => string } | null>(null);
+
+  useEffect(() => {
+    // Dynamically import the gender-detection-ts package
+    import('gender-detection-ts').then((module) => {
+      setGenderDetector(() => module.default || module);
+    });
+  }, []);
+
+  const getGender = (name: string, options?: DetectionOptions) => {
+    if (!genderDetector) return 'unknown'; // Fallback if the package is not yet loaded
+    return genderDetector.detect(name, options as DetectionOptions);
+  }
+
+
+
+     /* 
+  // for debugging only.
+    console.log('Theme Breakpoints:', theme.breakpoints);
+    console.log('Current Screen Width:', window.innerWidth);
+    console.log('Is Mobile Screen:', isMobileScreen);
+    console.log('Is Mobile Device:', isMobileDevice);
+    console.log('Is Tablet:', isTablet);
+    console.log('Is Mobile:', isMobile);
+  
+  */
+
+  return (
+    <Container size="lg" py="md">
+      {/* Title */}
+      <Title order={2} mb="lg" style={{ textAlign: 'center' }}>
+        Users
+      </Title>
+
+      {/* Responsive Display */}
+      {isMobile ? (
+        // Display Cards for Mobile and Tablet
+        <div className={styles.cardContainer}>
+          {mockUsers.map((user) => (
+            <Card key={user.userId} shadow="sm" padding="lg" radius="md" withBorder>
+              {/* Random Image */}
+              <Card.Section>
+                <Image
+                  src={`https://randomuser.me/api/portraits/${getGender(user.firstName, { useProbability: true } as DetectionOptions) === 'female' ? 'women' : 'men'
+                    }/${Math.floor(Math.random() * 100)}.jpg`}
+                  alt="Random User"
+                  height={160}
+                />
+              </Card.Section>
+
+              {/* Full Name */}
+              <Text fw={500} size="lg" mt="md" style={{ textAlign: 'center' }}>
+                {user.fullName}
+              </Text>
+
+              {/* User Details */}
+              <Text size="sm" mt="sm">
+                <strong>ID:</strong> {user.userId}
+              </Text>
+              <Text size="sm">
+                <strong>First Name:</strong> {user.firstName}
+              </Text>
+              <Text size="sm">
+                <strong>Middle Initial:</strong> {user.middleInitial || 'N/A'}
+              </Text>
+              <Text size="sm">
+                <strong>Last Name:</strong> {user.lastName}
+              </Text>
+              <Text size="sm">
+                <strong>Email:</strong> {user.email}
+              </Text>
+              <Text size="sm">
+                <strong>Username:</strong> {user.username}
+              </Text>
+
+              {/* Action Buttons */}
+              <Group mt="md" align="center">
+                <Button variant="outline" color="blue" size="xs">
+                  Update
+                </Button>
+                <Button variant="outline" color="red" size="xs">
+                  Delete
+                </Button>
+              </Group>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        // Display Table for Desktop and Large Screens
+        <Table>
+            <thead className={styles.tableHeader}>
+            <tr>
+              <th>UserID</th>
+              <th>First Name</th>
+              <th>Middle Initial</th>
+              <th>Last Name</th>
+              <th>Full Name</th>
+              <th>E-mail Address</th>
+              <th>Username</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {mockUsers.map((user) => (
+              <tr key={user.userId}>
+                <td>{user.userId}</td>
+                <td>{user.firstName}</td>
+                <td>{user.middleInitial}</td>
+                <td>{user.lastName}</td>
+                <td>{user.fullName}</td>
+                <td>{user.email}</td>
+                <td>{user.username}</td>
+                <td>
+                  <Button variant="outline" color="blue" size="xs">
+                    Update
+                  </Button>
+                </td>
+                <td>
+                  <Button variant="outline" color="red" size="xs">
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
+
+      {/* Register New User Button */}
+      <Center mt="lg" style={{ display: 'flex', justifyContent: 'center' }}>
+        <Button variant="filled" color="green" size="md">
+          Register New User
+        </Button>
+      </Center>
+    </Container>
+  );
+};
+
+export default ViewUsersTest;

@@ -1,0 +1,18 @@
+.cardContainer {
+    display: grid; /* Corrected syntax */
+    gap: 1rem; /* Corrected syntax */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjusted for better responsiveness */
+    margin: 0 auto; /* Center the grid container */
+    justify-content: center; /* Ensure items are centered horizontally */
+    align-items: center; /* Ensure items are centered vertically */
+}
+
+.tableHeader {
+    background-color: teal; /* Replace with theme.colors.gray[1] equivalent */
+}
+
+.tableHeader th {
+    color: white; /* Replace with theme.colors.gray[0] equivalent */
+    font-weight: bold;
+    padding: 10px;
+}
