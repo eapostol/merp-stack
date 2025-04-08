@@ -1,5 +1,5 @@
 import { ActionIcon, Drawer, Button, CloseButton, Container, Group, Stack, useMantineTheme } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { Link } from 'react-router-dom';
 import { IconX } from '@tabler/icons-react';
 // import { useState } from 'react';
@@ -14,6 +14,7 @@ const NavBar = () => {
         { label: 'Login', path: '/login' }
     ];
     const titleStyle = { fontWeight: 700, fontSize: '1.2rem' };
+    const isMobile = useMediaQuery('(max-width: 768px)');
 
     return (
         <>
@@ -58,12 +59,16 @@ const NavBar = () => {
                     size="lg"
                     hiddenFrom="sm"
                     style={{
+                        display: isMobile ? 'block' : 'none', // Show only on mobile
                         borderColor: 'red',
                         width: '32px',
                         height: '32px',
                         padding: '0',
                         transition: 'transform 0.3s ease',
                         transform: opened ? 'translateX(-8px)' : 'translateX(0)',
+                        position: 'absolute', // Ensure it moves dynamically
+                        right: '1rem', // Adjust based on container padding
+                        top: '1rem', // Adjust for vertical alignment
                     }}
                 >
                     <svg
@@ -93,8 +98,10 @@ const NavBar = () => {
                     content: {
                         borderLeft: '2px solid #ccc',
                         height: '100vh',
+                        overflowY: 'auto', // Ensure content scrolls if it overflows
                     },
                     body: {
+                        padding: '1rem',
                         borderLeft: '2px solid #ccc', // subtle left border
                         height: '100%',
                     },
