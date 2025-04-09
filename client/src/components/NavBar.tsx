@@ -29,7 +29,7 @@ const NavBar = () => {
                     borderBottom: `1px solid ${theme.colors.gray[3]}`,
                 }}
             >
-                <div style={titleStyle}>FERPa DERPA</div>
+                <div style={titleStyle}>MERPa DERPA</div>
 
                 {/* Desktop nav */}
                 <Group gap="lg" visibleFrom="sm">
