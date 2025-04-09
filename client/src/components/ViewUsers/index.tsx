@@ -104,50 +104,62 @@ const ViewUsersTest = () => {
         // Display Cards for Mobile and Tablet
         <div className={styles.cardContainer}>
           {mockUsers.map((user) => (
-            <Card key={user.userId} shadow="sm" padding="lg" radius="md" withBorder>
+            <Card 
+              style={{ 
+              textAlign: 'center', 
+              border: '1px solid grey', // Add grey border
+              borderRadius: '8px', // Add rounded corners
+              padding: '16px', // Optional: Add padding for better spacing
+              }} 
+              key={user.userId} 
+              shadow="sm" 
+              padding="lg" 
+              radius="md" 
+              withBorder
+            >
               {/* Random Image */}
               <Card.Section>
-                <Image
-                  src={`https://randomuser.me/api/portraits/${getGender(user.firstName, { useProbability: true } as DetectionOptions) === 'female' ? 'women' : 'men'
-                    }/${Math.floor(Math.random() * 100)}.jpg`}
-                  alt="Random User"
-                  height={160}
-                />
+              <Image
+                src={`https://randomuser.me/api/portraits/${getGender(user.firstName, { useProbability: true } as DetectionOptions) === 'female' ? 'women' : 'men'
+                }/${Math.floor(Math.random() * 100)}.jpg`}
+                alt="Random User"
+                height={160}
+              />
               </Card.Section>
 
               {/* Full Name */}
               <Text fw={500} size="lg" mt="md" style={{ textAlign: 'center' }}>
-                {user.fullName}
+              {user.fullName}
               </Text>
 
               {/* User Details */}
               <Text size="sm" mt="sm">
-                <strong>ID:</strong> {user.userId}
+              <strong>ID:</strong> {user.userId}
               </Text>
               <Text size="sm">
-                <strong>First Name:</strong> {user.firstName}
+              <strong>First Name:</strong> {user.firstName}
               </Text>
               <Text size="sm">
-                <strong>Middle Initial:</strong> {user.middleInitial || 'N/A'}
+              <strong>Middle Initial:</strong> {user.middleInitial || 'N/A'}
               </Text>
               <Text size="sm">
-                <strong>Last Name:</strong> {user.lastName}
+              <strong>Last Name:</strong> {user.lastName}
               </Text>
               <Text size="sm">
-                <strong>Email:</strong> {user.email}
+              <strong>Email:</strong> {user.email}
               </Text>
               <Text size="sm">
-                <strong>Username:</strong> {user.username}
+              <strong>Username:</strong> {user.username}
               </Text>
 
               {/* Action Buttons */}
               <Group mt="md" align="center">
-                <Button variant="outline" color="blue" size="xs">
-                  Update
-                </Button>
-                <Button variant="outline" color="red" size="xs">
-                  Delete
-                </Button>
+              <Button variant="outline" color="blue" size="xs">
+                Update
+              </Button>
+              <Button variant="outline" color="red" size="xs">
+                Delete
+              </Button>
               </Group>
             </Card>
           ))}

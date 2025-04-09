@@ -15,6 +15,7 @@ const NavBar = () => {
     ];
     const titleStyle = { fontWeight: 700, fontSize: '1.2rem' };
     const isMobile = useMediaQuery('(max-width: 768px)');
+    const isTablet = useMediaQuery('(max-width: 1024px)'); // Media query for tablets
 
     return (
         <>
@@ -59,7 +60,7 @@ const NavBar = () => {
                     size="lg"
                     hiddenFrom="sm"
                     style={{
-                        display: isMobile ? 'block' : 'none', // Show only on mobile
+                        display: isTablet ? 'block' : 'none', // Show on mobile and tablets
                         borderColor: 'red',
                         width: '32px',
                         height: '32px',
