@@ -13,6 +13,12 @@ const ViewUsers = () => {
     email: string;
   }
 
+  interface DetectionOptions {
+    useProbability?: boolean // if a name is unisex, the one with the higher probability will be evaluated
+    useCount?: boolean // same with count
+    // mutually exclusive
+  }
+
   const theme = useMantineTheme(); // Access Mantine's theme for breakpoints
   const isMobileScreen = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`); // Check if the screen is mobile-sized
   const isTabletScreen = useMediaQuery(`(max-width: ${theme.breakpoints.md}px)`); // Check if the screen is tablet-sized
@@ -21,10 +27,16 @@ const ViewUsers = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [genderDetector, setGenderDetector] = useState<{ detect: (name: string, options?: DetectionOptions) => string } | null>(null);
+
 
   useEffect(() => {
     const getUsers = async () => {
       try {
+        // Dynamically import the gender-detection-ts package
+        import('gender-detection-ts').then((module) => {
+          setGenderDetector(() => module.default || module);
+        });
         const fetchedUsers = await fetchUsers();
         setUsers(fetchedUsers);
       } catch (err: unknown) {
@@ -40,6 +52,11 @@ const ViewUsers = () => {
 
     getUsers();
   }, []);
+
+  const getGender = (name: string, options?: DetectionOptions) => {
+    if (!genderDetector) return 'unknown'; // Fallback if the package is not yet loaded
+    return genderDetector.detect(name, options as DetectionOptions);
+  }
 
   if (loading) {
     return <p>Loading...</p>;
@@ -76,13 +93,13 @@ const ViewUsers = () => {
             >
               {/* Random Image */}
               <Card.Section>
-                <Image
-                  src={`https://randomuser.me/api/portraits/${Math.random() > 0.5 ? 'women' : 'men'}/${Math.floor(
-                    Math.random() * 100
-                  )}.jpg`}
-                  alt="Random User"
-                  height={160}
-                />
+              <Image
+                src={`https://randomuser.me/api/portraits/${
+                getGender(user.first_name, {useProbability: true} as DetectionOptions)==='female' ? 'women' : 'men'
+                }/${Math.floor(Math.random() * 100)}.jpg`}
+                alt={user.first_name}
+                height={160}
+              />
               </Card.Section>
 
               {/* Full Name */}
