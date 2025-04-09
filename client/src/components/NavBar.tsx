@@ -27,6 +27,12 @@ const NavBar = () => {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     borderBottom: `1px solid ${theme.colors.gray[3]}`,
+                    position: 'fixed', // Fix the NavBar at the top
+                    top: 0, // Align it to the top of the viewport
+                    left: 0,
+                    right: 0,
+                    zIndex: 1000, // Ensure it stays above other content
+                    backgroundColor: 'white', // Add a background color to prevent overlap issues
                 }}
             >
                 <div style={titleStyle}>MERPa DERPA</div>
@@ -60,7 +66,7 @@ const NavBar = () => {
                     size="lg"
                     hiddenFrom="sm"
                     style={{
-                        display: isTablet ? 'block' : 'none', // Show on mobile and tablets
+                        display: (isTablet || isMobile) ? 'block' : 'none', // Show on mobile and tablets
                         borderColor: 'red',
                         width: '32px',
                         height: '32px',
@@ -97,16 +103,20 @@ const NavBar = () => {
                 hiddenFrom="sm"
                 styles={{
                     content: {
+                        position: 'fixed', // Fix the drawer to the viewport
+                        top: 0, // Align it to the top of the screen
+                        right: 0, // Align it to the right edge
+                        height: '100vh', // Full height
+                        overflowY: 'auto', // Allow scrolling if content overflows
                         borderLeft: '2px solid #ccc',
-                        height: '100vh',
-                        overflowY: 'auto', // Ensure content scrolls if it overflows
-                    },
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start', // Align content to the top
+                        zIndex: 1100, // Ensure it stays above other elements
+                     },
                     body: {
                         padding: '1rem',
-                        borderLeft: '2px solid #ccc', // subtle left border
-                        height: '100%',
                     },
-
                 }}
             >
                 <CloseButton
