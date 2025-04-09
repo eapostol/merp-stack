@@ -4,7 +4,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { fetchUsers } from '../../utilities/graphql-api'; // Import fetchUsers function
 import styles from './viewusers.module.css';
 
-const ViewUsersTest = () => {
+const ViewUsers = () => {
   interface User {
     id: string;
     first_name: string;
@@ -161,4 +161,4 @@ const ViewUsersTest = () => {
   );
 };
 
-export default ViewUsersTest;
+export default ViewUsers;
