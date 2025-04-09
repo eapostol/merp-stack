@@ -107,6 +107,18 @@ Refer to the `package.json` file for the exact implementation of these commands.
 ### Database
 
 1. Ensure MongoDB is running locally or provide a connection string in the environment variables.
+
+    As an example, the following could be set up in your ./server/env file.
+
+    ```bash
+    # .env file 
+    JWT_SECRET=shared_jwt_secret
+    MONGO_URL=mongodb://localhost:27017
+    MONGO_USERNAME=""
+    MONGO_PASSWORD=""
+    MONGO_DBNAME="exampleDB"
+    ```
+
 2. Seed the database if necessary using scripts in the `database` folder.
 
 ### Database Script Execution (SEEDING)
