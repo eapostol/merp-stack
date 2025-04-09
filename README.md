@@ -5,7 +5,8 @@ Fullstack app using MongoDB, FastAPI, React, and Python
 ## Features
 
 - **React**: Frontend library for building user interfaces.
-- **Mantine**: React Component Framework
+- **Mantine**: React Component Framework with support for Tailwind CSS
+- **Tailwind**: CSS Framework for building responsive UIs.
 - **FastAPI**: Backend framework for building APIs with Python.
 - **Ariadne**: used to perform tasks using GraphQL
 - **MongoDB**: NoSQL database for storing application data.
@@ -44,6 +45,10 @@ Fullstack app using MongoDB, FastAPI, React, and Python
 
     ```bash
     # navigate to your project folder first
+    # https://docs.python.org/3/library/venv.html or
+    # https://www.geeksforgeeks.org/create-virtual-environment-using-venv-python/
+
+    # here we are creating a virtual python environment named dev
 
     python -m venv dev
     source dev/bin/activate  # On Windows: dev\Scripts\activate
@@ -55,7 +60,7 @@ Fullstack app using MongoDB, FastAPI, React, and Python
     pip install -r install.txt
     ```
 
-4. Start the FastAPI server:
+4. Start the FastAPI server (Express equivalent):
 
     ```bash
     uvicorn main:app --reload
@@ -78,11 +83,11 @@ Fullstack app using MongoDB, FastAPI, React, and Python
 3. Start the development server:
 
     ```bash
-    npm start
+    npm run dev
     ```
 
 note: These commands are replicated in the root project's package.json file.
-You can look at the `script` block to review the commands available via `npm run ...`.  
+You can look at the `script` block to review the commands available via `npm run ...`.  See next section below.
 
 ### Available Scripts
 
@@ -102,9 +107,21 @@ Refer to the `package.json` file for the exact implementation of these commands.
 ### Database
 
 1. Ensure MongoDB is running locally or provide a connection string in the environment variables.
+
+    As an example, the following could be set up in your ./server/env file.
+
+    ```bash
+    # .env file 
+    JWT_SECRET=shared_jwt_secret
+    MONGO_URL=mongodb://localhost:27017
+    MONGO_USERNAME=""
+    MONGO_PASSWORD=""
+    MONGO_DBNAME="exampleDB"
+    ```
+
 2. Seed the database if necessary using scripts in the `database` folder.
 
-### Database Script Execution
+### Database Script Execution (SEEDING)
 
 from the `server` directory execute the following in terminal with python virtual environment
 activated.
@@ -119,13 +136,15 @@ activated.
 - to view graphQL playground using Ariadne (the python equivalent of Apollo),
       - you can start the server side directly from the root folder with
       - `npm run start-server`, then use a browser and browse to
-      - `http://localhost:8000`
+      - `http://localhost:8000/graphql` to see the `araidne playground` which is
+      the same thing as the *Apollo Playground*
+- the resolvers, queries and mutations are found in the ./server/graphql folder.
 
 ![alt text](./docs/images/ariadne-preview.png)
 
 - to use REST API, The vite config server is defined to send requests through
   - `http://localhost:8000/api` ; a test GET Request is available through
-    `http://localhost:8000/api/hello`
+    `http://localhost:8000/api/hello` and is used in the sample react component `HelloFromServer.tsx`
 
 ## Testing
 

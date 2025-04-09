@@ -5,6 +5,8 @@
     margin: 0 auto; /* Center the grid container */
     justify-content: center; /* Ensure items are centered horizontally */
     align-items: center; /* Ensure items are centered vertically */
+    text-align: center;
+    padding: 20px; /* Added padding for better spacing */
 }
 
 .tableHeader {
@@ -15,4 +17,9 @@
     color: white; /* Replace with theme.colors.gray[0] equivalent */
     font-weight: bold;
     padding: 10px;
+}
+
+.titleStyle {
+    font-weight: 700; 
+    font-size: '1.2rem'
 }
