@@ -25,7 +25,7 @@ const ViewUsers = () => {
   const isMobileOrTablet = isMobileScreen || isTabletScreen;
 
   const [users, setUsers] = useState<User[]>([]);
-  const [onGenderIdLoading, setOnGenderIdLoading] = useState<boolean>(true);
+  const [isGenderDetectorLoaded, setIsGenderDetectorLoaded] = useState<boolean>(true);
   const [genderError, setGenderError] = useState<string | null>(null);
   const [genderDetector, setGenderDetector] = useState<{ detect: (name: string, options?: DetectionOptions) => string } | null>(null);
 
@@ -41,7 +41,7 @@ const ViewUsers = () => {
           setGenderError('An unknown error occurred');
         }
       } finally {
-        setOnGenderIdLoading(false);
+        setIsGenderDetectorLoaded(false);
       }
     };
 
@@ -71,7 +71,7 @@ const ViewUsers = () => {
     return genderDetector.detect(name, options as DetectionOptions);
   };
 
-  if (onGenderIdLoading) {
+  if (isGenderDetectorLoaded) {
     return <p>Loading name determination...</p>;
   }
 
