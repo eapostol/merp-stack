@@ -1,7 +1,8 @@
+import { useQuery } from '@apollo/client';
 import { useState, useEffect } from 'react';
 import { Table, Button, Container, Title, Center, Card, Image, Text, Group, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { fetchUsers } from '../../utilities/graphql-api'; // Import fetchUsers function
+import { GET_USERS_QUERY } from '../../utilities/graphql-api';
 import styles from './viewusers.module.css';
 
 const ViewUsers = () => {
@@ -14,76 +15,85 @@ const ViewUsers = () => {
   }
 
   interface DetectionOptions {
-    useProbability?: boolean // if a name is unisex, the one with the higher probability will be evaluated
-    useCount?: boolean // same with count
-    // mutually exclusive
+    useProbability?: boolean;
+    useCount?: boolean;
   }
 
-  const theme = useMantineTheme(); // Access Mantine's theme for breakpoints
-  const isMobileScreen = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`); // Check if the screen is mobile-sized
-  const isTabletScreen = useMediaQuery(`(max-width: ${theme.breakpoints.md}px)`); // Check if the screen is tablet-sized
-  const isMobileOrTablet = isMobileScreen || isTabletScreen; // Combine media query for mobile and tablet
+  const theme = useMantineTheme();
+  const isMobileScreen = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`);
+  const isTabletScreen = useMediaQuery(`(max-width: ${theme.breakpoints.md}px)`);
+  const isMobileOrTablet = isMobileScreen || isTabletScreen;
 
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [isGenderDetectorLoaded, setIsGenderDetectorLoaded] = useState<boolean>(true);
+  const [genderError, setGenderError] = useState<string | null>(null);
   const [genderDetector, setGenderDetector] = useState<{ detect: (name: string, options?: DetectionOptions) => string } | null>(null);
 
-
   useEffect(() => {
-    const getUsers = async () => {
+    const loadGenderDetector = async () => {
       try {
-        // Dynamically import the gender-detection-ts package
-        import('gender-detection-ts').then((module) => {
-          setGenderDetector(() => module.default || module);
-        });
-        const fetchedUsers = await fetchUsers();
-        setUsers(fetchedUsers);
+        const module = await import('gender-detection-ts');
+        setGenderDetector(() => module.default || module);
       } catch (err: unknown) {
         if (err instanceof Error) {
-          setError(err.message || 'Error fetching users');
+          setGenderError(err.message || 'Error loading gender detector');
         } else {
-          setError('An unknown error occurred');
+          setGenderError('An unknown error occurred');
         }
       } finally {
-        setLoading(false);
+        setIsGenderDetectorLoaded(false);
       }
     };
 
-    getUsers();
+    loadGenderDetector();
   }, []);
 
-  const getGender = (name: string, options?: DetectionOptions) => {
-    if (!genderDetector) return 'unknown'; // Fallback if the package is not yet loaded
-    return genderDetector.detect(name, options as DetectionOptions);
-  }
+  // Use Apollo Client's useQuery hook to fetch users
+  const { loading, error, data } = useQuery(GET_USERS_QUERY);
+
+  // Update users state when data changes
+  useEffect(() => {
+    if (data && data.users) {
+      setUsers(data.users);
+    }
+  }, [data]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p>Retrieving Data...</p>;
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>Error: {error.message}</p>;
+  }
+
+  const getGender = (name: string, options?: DetectionOptions) => {
+    if (!genderDetector) return 'unknown';
+    return genderDetector.detect(name, options as DetectionOptions);
+  };
+
+  if (isGenderDetectorLoaded) {
+    return <p>Loading name determination...</p>;
+  }
+
+  if (genderError) {
+    return <p>Error: {genderError}</p>;
   }
 
   return (
     <Container size="lg" py="md">
-      {/* Title */}
       <Title order={2} mb="lg" style={{ textAlign: 'center' }}>
         Users
       </Title>
 
-      {/* Responsive Display */}
       {isMobileOrTablet ? (
-        // Display Cards for Mobile and Tablet
         <div className={styles.cardContainer}>
           {users.map((user) => (
             <Card
               style={{
                 textAlign: 'center',
-                border: '1px solid grey', // Add grey border
-                borderRadius: '8px', // Add rounded corners
-                padding: '16px', // Optional: Add padding for better spacing
+                border: '1px solid grey',
+                borderRadius: '8px',
+                padding: '16px',
               }}
               key={user.id}
               shadow="sm"
@@ -91,23 +101,17 @@ const ViewUsers = () => {
               radius="md"
               withBorder
             >
-              {/* Random Image */}
               <Card.Section>
-              <Image
-                src={`https://randomuser.me/api/portraits/${
-                getGender(user.first_name, {useProbability: true} as DetectionOptions)==='female' ? 'women' : 'men'
-                }/${Math.floor(Math.random() * 100)}.jpg`}
-                alt={user.first_name}
-                height={160}
-              />
+                <Image
+                  src={`https://randomuser.me/api/portraits/${getGender(user.first_name, { useProbability: true }) === 'female' ? 'women' : 'men'
+                    }/${Math.floor(Math.random() * 100)}.jpg`}
+                  alt={user.first_name}
+                  height={160}
+                />
               </Card.Section>
-
-              {/* Full Name */}
               <Text fw={500} size="lg" mt="md" style={{ textAlign: 'center' }}>
                 {user.full_name}
               </Text>
-
-              {/* User Details */}
               <Text size="sm" mt="sm">
                 <strong>ID:</strong> {user.id}
               </Text>
@@ -120,8 +124,6 @@ const ViewUsers = () => {
               <Text size="sm">
                 <strong>Email:</strong> {user.email}
               </Text>
-
-              {/* Action Buttons */}
               <Group mt="md" align="center">
                 <Button variant="outline" color="blue" size="xs">
                   Update
@@ -134,7 +136,6 @@ const ViewUsers = () => {
           ))}
         </div>
       ) : (
-        // Display Table for Desktop and Large Screens
         <Table>
           <thead className={styles.tableHeader}>
             <tr>
@@ -168,7 +169,6 @@ const ViewUsers = () => {
         </Table>
       )}
 
-      {/* Register New User Button */}
       <Center mt="lg" style={{ display: 'flex', justifyContent: 'center' }}>
         <Button variant="filled" color="green" size="md">
           Register New User
